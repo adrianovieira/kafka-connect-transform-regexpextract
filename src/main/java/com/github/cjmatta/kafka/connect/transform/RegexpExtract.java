@@ -101,7 +101,10 @@ public abstract class RegexpExtract<R extends ConnectRecord<R>> implements Trans
       updatedValue.put(field.name(), value.get(field));
     }
 
-    String matched = getRegexpMatch(value.get(sourceFieldName).toString(), pattern);
+    String matched = "";
+    if(value.get(sourceFieldName) != null) {
+      matched = getRegexpMatch(value.get(sourceFieldName).toString(), pattern);
+    }
     updatedValue.put(destinationFieldName, matched);
 
     return newRecord(record, updatedSchema, updatedValue);
